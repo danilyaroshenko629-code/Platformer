@@ -29,3 +29,4 @@ class AssetManager:
         return self._images[key]
 
 # do not touch
+# hello

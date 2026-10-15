@@ -27,3 +27,5 @@ class AssetManager:
                 self._images[key] = surface
 
         return self._images[key]
+
+# do not touch

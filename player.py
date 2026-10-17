@@ -46,3 +46,4 @@ class Player(GameObject):
         self.handle_input()
         self.apply_horizontal_movement(dt)
         return super().update()
+

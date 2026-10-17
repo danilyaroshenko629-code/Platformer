@@ -1,5 +1,5 @@
 import pygame as pg
-from Platformer.asset_manager import AssetManager
+from asset_manager import AssetManager
 
 
 class GameObject(pg.sprite.Sprite):
@@ -13,7 +13,7 @@ class GameObject(pg.sprite.Sprite):
 
 
 
-    def update(self):
+    def update(self,):
         pg.display.update()
 
     def draw(self, screen : pg.Surface):

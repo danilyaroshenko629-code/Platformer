@@ -33,6 +33,13 @@ class Player(GameObject):
             self.velocity.x += self.move_direction * settings.ACCELERATION * dt
             self.velocity.x =     pg.math.clamp(self.velocity.x,-settings.MAX_SPEED,settings.MAX_SPEED)
 
+
+        else:
+            if self.velocity.x > 0:
+                self.velocity.x = max(0.0, self.velocity.x - settings.FRICTION * dt)
+            elif self.velocity.x < 0:
+                self.velocity.x = min(0, self.velocity.x + settings.FRICTION * dt)
+
         # перевіряємо чи є направлення
 
         # якщо направлення != 0, то ми розганяємо гравця в обраному напрямку

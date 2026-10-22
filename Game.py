@@ -2,7 +2,7 @@
 import pygame as pg
 import settings
 from asset_manager import AssetManager
-
+from game_plattform import GamePlatform
 from player import Player
 
 pg.init()
@@ -10,6 +10,7 @@ pg.mixer.init()
 screen = pg.display.set_mode((settings.WINDOW_SIZE))
 clock = pg.time.Clock()
 
+platform = GamePlatform((200,50),"Platform.png",(250,0),AssetManager())
 player = Player(pg.Vector2(0,0),"img.png",(125,125),AssetManager())
 
 
@@ -18,7 +19,9 @@ while run:
 
     dt = clock.tick(settings.FPS) / 1000.0
     screen.fill((0, 0, 0))
-
+    player.draw(screen)
+    player.update(dt)
+    platform.draw(screen)
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False

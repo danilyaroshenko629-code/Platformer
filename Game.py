@@ -2,7 +2,7 @@
 import pygame as pg
 import settings
 from asset_manager import AssetManager
-import platform
+
 from player import Player
 
 pg.init()
@@ -10,7 +10,7 @@ pg.mixer.init()
 screen = pg.display.set_mode((settings.WINDOW_SIZE))
 clock = pg.time.Clock()
 
-player = Player(pg.Vector2(0,0),"img.png",(125,125),AssetManager)
+player = Player(pg.Vector2(0,0),"img.png",(125,125),AssetManager())
 
 
 run = True

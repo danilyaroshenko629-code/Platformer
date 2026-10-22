@@ -31,7 +31,7 @@ class Player(GameObject):
     def apply_horizontal_movement(self,dt):
         if self.move_direction != 0:
             self.velocity.x += self.move_direction * settings.ACCELERATION * dt
-            self.velocity =     pg.math.clamp(self.velocity.x,-settings.MAX_SPEED,settings.MAX_SPEED)
+            self.velocity.x =     pg.math.clamp(self.velocity.x,-settings.MAX_SPEED,settings.MAX_SPEED)
 
         # перевіряємо чи є направлення
 
@@ -44,6 +44,8 @@ class Player(GameObject):
 
     def update(self, dt : float):
         self.handle_input()
+        self.position += self.velocity * dt
+        self.rect.topleft = (self.position.x, self.position.y)
         self.apply_horizontal_movement(dt)
         return super().update()
 

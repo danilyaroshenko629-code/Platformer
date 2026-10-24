@@ -49,10 +49,25 @@ class Player(GameObject):
 
 
 
-    def update(self, dt : float):
+    def update(self, dt : float,platforms):
         self.handle_input()
         self.position += self.velocity * dt
-        self.rect.topleft = (self.position.x, self.position.y)
+
         self.apply_horizontal_movement(dt)
+        for pl in platforms:
+            if self.rect.colliderect(pl.rect):
+                print("collide")
+
+                if self.velocity.x > 0:
+                    self.rect.right = pl.rect.left
+                    self.position.x = self.rect.x
+                    self.velocity.x = 0
+
+                elif self.velocity.x <0 :
+                    self.rect.left = pl.rect.right
+                    self.position.x = self.rect.x
+                    self.velocity.x = 0
+
+        self.rect.topleft = (self.position.x, self.position.y)
         return super().update()
 

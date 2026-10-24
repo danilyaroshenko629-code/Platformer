@@ -40,34 +40,44 @@ class Player(GameObject):
             elif self.velocity.x < 0:
                 self.velocity.x = min(0, self.velocity.x + settings.FRICTION * dt)
 
-        # перевіряємо чи є направлення
 
-        # якщо направлення != 0, то ми розганяємо гравця в обраному напрямку
+    def  check_window(self):
+        if self.rect.left < 0:
+            self.rect.left = 0
+            self.position.x = float(self.rect.x)
+            self.velocity.x = 0
 
-        # обмежуємо швидкість гравця
-        # pg.math.clamp(ШВИДКІСТЬ ГРАВЦЯ, -МАКСИМАЛЬНА ШВИДКІСТЬ, МАКСИМАЛЬНА ШВИДКІСТЬ)
+        if self.rect.right > settings.WINDOW_SIZE[0]:
+            self.rect.right = settings.WINDOW_SIZE[0]
+            self.position.x = float(self.rect.x)
+            self.velocity.x = 0
+
+
+
 
 
 
     def update(self, dt : float,platforms):
         self.handle_input()
-        self.position += self.velocity * dt
 
         self.apply_horizontal_movement(dt)
+        self.position += self.velocity * dt
         for pl in platforms:
             if self.rect.colliderect(pl.rect):
-                print("collide")
 
                 if self.velocity.x > 0:
                     self.rect.right = pl.rect.left
-                    self.position.x = self.rect.x
+                    self.position.x = float(self.rect.x)
                     self.velocity.x = 0
-
-                elif self.velocity.x <0 :
+        for pl in platforms:
+            if self.rect.colliderect(pl.rect):
+                if self.velocity.x <0 :
                     self.rect.left = pl.rect.right
-                    self.position.x = self.rect.x
+                    self.position.x = float(self.rect.x)
                     self.velocity.x = 0
 
+        self.check_window()
         self.rect.topleft = (self.position.x, self.position.y)
+
         return super().update()
 

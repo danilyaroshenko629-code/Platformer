@@ -23,6 +23,10 @@ while run:
     player.draw(screen)
     player.update(dt,platforms)
     platform.draw(screen)
+
+
+
+
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False

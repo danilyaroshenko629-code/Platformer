@@ -32,8 +32,9 @@ class Player(GameObject):
 
     def jump(self):
 
-        if self.is_grounded == False:
-            self.velocity.y *= settings.JUMP_FORCE
+        if self.is_grounded:
+            self.velocity.y = -settings.JUMP_FORCE
+            self.is_grounded = False
 
 
         # якщо гравець він не на землі
@@ -91,9 +92,8 @@ class Player(GameObject):
 
         self.apply_vertical_movement(dt)
 
+        self.position.y += self.velocity.y * dt
 
-        # діє гравітація на гравця
-        # вертикально рухаємо гравця   self.position += self.velocity * dt
 
         # ПЕРЕВІРЯЄМО чи гравець стоїть ЗВЕРХУ платформи та ЗНИЗУ
 

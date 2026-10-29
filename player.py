@@ -25,13 +25,32 @@ class Player(GameObject):
         if keys[pg.K_a]:
             self.move_direction -= 1.0
 
-    def jump(self):
-        pass
+        if keys[pg.K_SPACE]:
+            self.jump()
 
-    def apply_horizontal_movement(self,dt):
+        # якщо гравець натиснув пробіл то JUMP
+
+    def jump(self):
+
+        if self.is_grounded == False:
+            self.velocity.y *= settings.JUMP_FORCE
+
+
+        # якщо гравець він не на землі
+        # змінуюємо швидкість гравця velocity.y на JUMP_FORCE
+        # кажемо що гравець тепер не на землі
+
+        # def apply_vertical_movement(self, dt):
+        """ГРАВІТАЦІЯ ЩО ДІЄ ПОСТІЙНО НА ГРАВЦЯ"""
+        #  self.velocity.y += ГРАВІТАЦІЯ * dt
+
+    def apply_vertical_movement(self, dt):
+        self.velocity.y += settings.GRAVITY * dt
+
+    def apply_horizontal_movement(self, dt):
         if self.move_direction != 0:
             self.velocity.x += self.move_direction * settings.ACCELERATION * dt
-            self.velocity.x =     pg.math.clamp(self.velocity.x,-settings.MAX_SPEED,settings.MAX_SPEED)
+            self.velocity.x = pg.math.clamp(self.velocity.x, -settings.MAX_SPEED, settings.MAX_SPEED)
 
 
         else:
@@ -40,8 +59,7 @@ class Player(GameObject):
             elif self.velocity.x < 0:
                 self.velocity.x = min(0, self.velocity.x + settings.FRICTION * dt)
 
-
-    def  check_window(self):
+    def check_window(self):
         if self.rect.left < 0:
             self.rect.left = 0
             self.position.x = float(self.rect.x)
@@ -52,16 +70,11 @@ class Player(GameObject):
             self.position.x = float(self.rect.x)
             self.velocity.x = 0
 
-
-
-
-
-
-    def update(self, dt : float,platforms):
+    def update(self, dt: float, platforms):
         self.handle_input()
 
         self.apply_horizontal_movement(dt)
-        self.position += self.velocity * dt
+        self.position.x += self.velocity.x * dt  # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
         for pl in platforms:
             if self.rect.colliderect(pl.rect):
 
@@ -71,10 +84,20 @@ class Player(GameObject):
                     self.velocity.x = 0
         for pl in platforms:
             if self.rect.colliderect(pl.rect):
-                if self.velocity.x <0 :
+                if self.velocity.x < 0:
                     self.rect.left = pl.rect.right
                     self.position.x = float(self.rect.x)
                     self.velocity.x = 0
+
+        self.apply_vertical_movement(dt)
+
+
+        # діє гравітація на гравця
+        # вертикально рухаємо гравця   self.position += self.velocity * dt
+
+        # ПЕРЕВІРЯЄМО чи гравець стоїть ЗВЕРХУ платформи та ЗНИЗУ
+
+        self.rect.y = int(self.position.y)
 
         self.check_window()
         self.rect.topleft = (self.position.x, self.position.y)

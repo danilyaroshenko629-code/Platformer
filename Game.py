@@ -9,17 +9,21 @@ pg.init()
 pg.mixer.init()
 screen = pg.display.set_mode((settings.WINDOW_SIZE))
 clock = pg.time.Clock()
-platform = GamePlatform((200,50),"Platform.png",(250 ,0),AssetManager())
+platform = GamePlatform((700,50),"Platform.png",(250 ,620),AssetManager())
 player = Player(pg.Vector2(500,0),"img.png",(125,125),AssetManager())
 platforms = pg.sprite.Group()
 platforms.add(platform)
 
 
+asset_manager_bg = AssetManager()
+bg_image = asset_manager_bg.get_image("Background_1.png",settings.WINDOW_SIZE)
+
 run = True
 while run:
 
     dt = clock.tick(settings.FPS) / 1000.0
-    screen.fill((0, 0, 0))
+    screen.fill((0,0,0))
+    screen.blit(bg_image,(0,0))
     player.draw(screen)
     player.update(dt,platforms)
     platform.draw(screen)
@@ -33,10 +37,6 @@ while run:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 run = False
-
-
-
-
 
 
 

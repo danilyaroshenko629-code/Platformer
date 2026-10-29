@@ -71,22 +71,22 @@ class Player(GameObject):
             self.position.x = float(self.rect.x)
             self.velocity.x = 0
 
-    def update(self, dt: float, platforms):
+    def update(self, dt: float, platforms,walls):
         self.handle_input()
 
         self.apply_horizontal_movement(dt)
         self.position.x += self.velocity.x * dt  # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
-        for pl in platforms:
-            if self.rect.colliderect(pl.rect):
+        for w in walls:
+            if self.rect.colliderect(w.rect):
 
                 if self.velocity.x > 0:
-                    self.rect.right = pl.rect.left
+                    self.rect.right = w.rect.left
                     self.position.x = float(self.rect.x)
                     self.velocity.x = 0
-        for pl in platforms:
-            if self.rect.colliderect(pl.rect):
+        for w in walls:
+            if self.rect.colliderect(w.rect):
                 if self.velocity.x < 0:
-                    self.rect.left = pl.rect.right
+                    self.rect.left = w.rect.right
                     self.position.x = float(self.rect.x)
                     self.velocity.x = 0
 
@@ -98,6 +98,15 @@ class Player(GameObject):
         # ПЕРЕВІРЯЄМО чи гравець стоїть ЗВЕРХУ платформи та ЗНИЗУ
 
         self.rect.y = int(self.position.y)
+        self.is_grounded = False
+        for pl in platforms:
+            if self.rect.colliderect(pl.rect) and (self.rect.bottom - pl.rect.top) <= (self.velocity.y * dt + 15):
+
+                if self.velocity.y > 0:
+                    self.rect.bottom = pl.rect.top
+                    self.position.y = float(self.rect.y)
+                    self.velocity.y = 0
+                    self.is_grounded = True
 
         self.check_window()
         self.rect.topleft = (self.position.x, self.position.y)

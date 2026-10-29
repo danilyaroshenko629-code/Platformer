@@ -10,9 +10,15 @@ pg.mixer.init()
 screen = pg.display.set_mode((settings.WINDOW_SIZE))
 clock = pg.time.Clock()
 platform = GamePlatform((700,50),"Platform.png",(250 ,620),AssetManager())
-player = Player(pg.Vector2(500,0),"img.png",(125,125),AssetManager())
+platform_2 = GamePlatform((700,50),"Platform.png",(250 ,440),AssetManager())
+platform_3 = GamePlatform((50,700),"Platform.png",(250 ,440),AssetManager())
+player = Player(pg.Vector2(500,0),"img.png",(50,90),AssetManager())
 platforms = pg.sprite.Group()
 platforms.add(platform)
+platforms.add(platform_2)
+walls = pg.sprite.Group()
+walls.add(platform_3)
+
 
 
 asset_manager_bg = AssetManager()
@@ -25,8 +31,9 @@ while run:
     screen.fill((0,0,0))
     screen.blit(bg_image,(0,0))
     player.draw(screen)
-    player.update(dt,platforms)
-    platform.draw(screen)
+    player.update(dt,platforms,walls)
+    platforms.draw(screen)
+    walls.draw(screen)
 
 
 

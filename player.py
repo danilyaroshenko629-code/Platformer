@@ -71,7 +71,7 @@ class Player(GameObject):
             self.position.x = float(self.rect.x)
             self.velocity.x = 0
 
-    def update(self, dt: float, platforms,walls):
+    def update(self, dt: float, platforms,walls,ground):
         self.handle_input()
 
         self.apply_horizontal_movement(dt)
@@ -107,6 +107,7 @@ class Player(GameObject):
                     self.position.y = float(self.rect.y)
                     self.velocity.y = 0
                     self.is_grounded = True
+
 
         self.check_window()
         self.rect.topleft = (self.position.x, self.position.y)

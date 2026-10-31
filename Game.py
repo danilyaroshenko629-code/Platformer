@@ -4,6 +4,7 @@ import settings
 from asset_manager import AssetManager
 from game_plattform import GamePlatform
 from player import Player
+from game_ground import GameGround
 
 pg.init()
 pg.mixer.init()
@@ -13,6 +14,7 @@ platform = GamePlatform((700,50),"Platform.png",(250 ,620),AssetManager())
 platform_2 = GamePlatform((700,50),"Platform.png",(250 ,440),AssetManager())
 platform_3 = GamePlatform((50,700),"Platform.png",(250 ,440),AssetManager())
 player = Player(pg.Vector2(500,0),"img.png",(50,90),AssetManager())
+ground = GameGround((1280,150),"ground.png",(0,700),AssetManager())
 platforms = pg.sprite.Group()
 platforms.add(platform)
 platforms.add(platform_2)
@@ -31,10 +33,10 @@ while run:
     screen.fill((0,0,0))
     screen.blit(bg_image,(0,0))
     player.draw(screen)
-    player.update(dt,platforms,walls)
+    player.update(dt,platforms,walls,ground)
     platforms.draw(screen)
-    walls.draw(screen)
-
+    # walls.draw(screen)
+    ground.draw(screen)
 
 
 

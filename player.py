@@ -71,11 +71,22 @@ class Player(GameObject):
             self.position.x = float(self.rect.x)
             self.velocity.x = 0
 
-    def update(self, dt: float, platforms,walls,ground):
+    def update(self, dt: float, platforms,walls,grounds):
         self.handle_input()
 
         self.apply_horizontal_movement(dt)
-        self.position.x += self.velocity.x * dt  # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
+        self.position.x += self.velocity.x * dt
+        # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
+
+
+        for g in grounds:
+            if self.rect.colliderect(g.rect) and (self.rect.bottom - g.rect.top) <= (self.velocity.y * dt + 15):
+
+                if self.velocity.y > 0:
+                    self.rect.bottom = g.rect.top
+                    self.position.y = float(self.rect.y)
+                    self.velocity.y = 0
+                    self.is_grounded = True
         for w in walls:
             if self.rect.colliderect(w.rect):
 

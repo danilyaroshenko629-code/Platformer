@@ -79,14 +79,7 @@ class Player(GameObject):
         # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
 
 
-        for g in grounds:
-            if self.rect.colliderect(g.rect) and (self.rect.bottom - g.rect.top) <= (self.velocity.y * dt + 15):
 
-                if self.velocity.y > 0:
-                    self.rect.bottom = g.rect.top
-                    self.position.y = float(self.rect.y)
-                    self.velocity.y = 0
-                    self.is_grounded = True
         for w in walls:
             if self.rect.colliderect(w.rect):
 
@@ -115,6 +108,15 @@ class Player(GameObject):
 
                 if self.velocity.y > 0:
                     self.rect.bottom = pl.rect.top
+                    self.position.y = float(self.rect.y)
+                    self.velocity.y = 0
+                    self.is_grounded = True
+
+        for g in grounds:
+            if self.rect.colliderect(g.rect) and (self.rect.bottom - g.rect.top) <= (self.velocity.y * dt + 15):
+
+                if self.velocity.y > 0:
+                    self.rect.bottom = g.rect.top
                     self.position.y = float(self.rect.y)
                     self.velocity.y = 0
                     self.is_grounded = True

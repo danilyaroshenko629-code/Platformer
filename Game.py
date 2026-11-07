@@ -1,44 +1,35 @@
-
 import pygame as pg
+import Asset
 import settings
 from asset_manager import AssetManager
 from game_plattform import GamePlatform
 from player import Player
 from game_ground import GameGround
+from level_loader import load_level
 
 pg.init()
 pg.mixer.init()
 screen = pg.display.set_mode((settings.WINDOW_SIZE))
 clock = pg.time.Clock()
-platform = GamePlatform((700,50), "Asset/Platform.png", (250 , 620), AssetManager())
-platform_2 = GamePlatform((700,50), "Asset/Platform.png", (250 , 440), AssetManager())
-platform_3 = GamePlatform((50,700), "Asset/Platform.png", (250 , 440), AssetManager())
-player = Player(pg.Vector2(500,0), "Asset/img.png", (50, 90), AssetManager())
-ground = GameGround((1280,150), "Asset/ground.png", (0, 700), AssetManager())
-platforms = pg.sprite.Group()
-platforms.add(platform)
-platforms.add(platform_2)
-walls = pg.sprite.Group()
-walls.add(platform_3)
-
-
 
 asset_manager_bg = AssetManager()
-bg_image = asset_manager_bg.get_image("Background_1.png",settings.WINDOW_SIZE)
+bg_image = asset_manager_bg.get_image(settings.BACKGROUND , settings.WINDOW_SIZE)
+
+platforms, walls, ground,player = load_level("level_1.txt", AssetManager())
 
 run = True
 while run:
 
     dt = clock.tick(settings.FPS) / 1000.0
-    screen.fill((0,0,0))
-    screen.blit(bg_image,(0,0))
-    player.draw(screen)
+    screen.fill((0, 0, 0))
+    screen.blit(bg_image, (0, 0))
+
     player.update(dt,platforms,walls,ground)
+
+    player.draw(screen)
     platforms.draw(screen)
-    # walls.draw(screen)
+    walls.draw(screen)
     ground.draw(screen)
-
-
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -47,8 +38,4 @@ while run:
             if event.key == pg.K_ESCAPE:
                 run = False
 
-
-
     pg.display.update()
-
-

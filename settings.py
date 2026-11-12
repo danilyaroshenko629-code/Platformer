@@ -1,5 +1,10 @@
-import Asset
+
 from pathlib import Path
+
+ASSET_PATH_FOLDER = Path("Asset")
+PICTURE_PATH_FOLDER = Path("picture")
+SOUNDS_PATH_FOLDER = Path("sounds")
+
 MAX_SPEED = 500
 ACCELERATION = 2500
 FRICTION = 4500
@@ -18,15 +23,15 @@ MAP_SYMBOLS = {
 
 }
 
-BACKGROUND = "Asset/picture/Background_1.png"
-GROUND = "Asset/picture/ground.png"
-PLAYER = "Asset/img.png"
-PLATTFORM ="Asset/Platform.png"
-WALL_RIGHT = "Asset/wall.right.png"
-WALL_LEFT = "Asset/wall.top.png"
-WALL_TOP = "Asset/wall_left.png"
+BACKGROUND_PATH = ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "Background_1.png"
+GROUND_PATH  =  ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "ground.png"
+PLAYER_PATH = ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "img.png"
+PLATTFORM_PATH =ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "Platform.png"
+WALL_RIGHT_PATH    =ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "wall.right.png"
+WALL_LEFT_PATH = ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "wall.left.png.png"
+WALL_TOP_PATH = ASSET_PATH_FOLDER / PICTURE_PATH_FOLDER / "wall.top.png"
 
 
-JUMP_SFX = r"Asset/sounds/jumpsoundeffect.mp3"
-LEVEL_1_MUSIC = "Asset/sounds/bit-shift-kevin-macleod-main-version-24901-03-12.mp3"
-DEATH_SOUND =  "Asset/sounds/chisper-8-bit-game-over-634762.mp3"
+JUMP_SFX = ASSET_PATH_FOLDER / SOUNDS_PATH_FOLDER / "jumpsoundeffect.mp3"
+LEVEL_1_MUSIC = ASSET_PATH_FOLDER /SOUNDS_PATH_FOLDER / "bit-shift-kevin-macleod-main-version-24901-03-12.mp3"
+DEATH_SOUND =  ASSET_PATH_FOLDER /SOUNDS_PATH_FOLDER / "chisper-8-bit-game-over-634762.mp3"

@@ -1,5 +1,6 @@
 import pygame as pg
 
+import settings
 from game_ground import GameGround
 from game_plattform import GamePlatform
 from player import Player
@@ -23,24 +24,24 @@ def load_level(file_path, asset_manager):
 
             if symbol == MAP_SYMBOLS["platform"]:
                 platform = GamePlatform(
-                    (TILE_SIZE, TILE_SIZE // 2), "Asset/picture/Platform.png", pg.Vector2(x, y), asset_manager
+                    (TILE_SIZE, TILE_SIZE // 2), settings.PLATTFORM_PATH, pg.Vector2(x, y), asset_manager
                 )
                 platforms.add(platform)
             elif symbol == MAP_SYMBOLS["wall"]:
                 wall = GamePlatform(
-                    (TILE_SIZE, TILE_SIZE), "Asset/picture/wall.top.png", pg.Vector2(x, y), asset_manager
+                    (TILE_SIZE, TILE_SIZE), settings.WALL_TOP_PATH, pg.Vector2(x, y), asset_manager
                 )
                 walls.add(wall)
 
             elif symbol == MAP_SYMBOLS["ground"]:
                 gr = GameGround(
-                    (TILE_SIZE, TILE_SIZE // 2), "Asset/picture/ground.png", pg.Vector2(x, y), asset_manager
+                    (TILE_SIZE, TILE_SIZE // 2), settings.GROUND_PATH, pg.Vector2(x, y), asset_manager
                 )
                 ground.add(gr)
 
             elif symbol == MAP_SYMBOLS["player"]:
                 player = Player(
-                    pg.Vector2(x, y), "Asset/picture/img.png", (TILE_SIZE, TILE_SIZE), asset_manager
+                    pg.Vector2(x, y), settings.PLAYER_PATH, (TILE_SIZE, TILE_SIZE), asset_manager
                 )
 
 

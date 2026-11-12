@@ -1,3 +1,5 @@
+from turtledemo.penrose import start
+
 import pygame as pg
 from game_object import GameObject
 import settings
@@ -12,6 +14,7 @@ class Player(GameObject):
         self.move_direction = 0.0
         #
         self.velocity = pg.Vector2(0, 0)
+        self.start_position = pg.Vector2(position)
         #
         self.is_grounded = True
         self.jump_sound = self.asset_manager.get_sound(settings.JUMP_SFX)
@@ -81,20 +84,18 @@ class Player(GameObject):
 
 
     def respawn(self):
-            self.velocity.y = 0
-            self.velocity.x = 0
-            self.position.x = 125
-            self.position.y = 650
-            self.death_sound.play()
+        self.death_sound.play()
+        self.velocity.y = 0
+        self.velocity.x = 0
+        self.is_grounded = False
+        self.position = pg.Vector2(self.start_position)
+
 
     def update(self, dt: float, platforms,walls,grounds):
         self.handle_input()
 
         self.apply_horizontal_movement(dt)
         self.position.x += self.velocity.x * dt
-        # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
-
-
         for w in walls:
             if self.rect.colliderect(w.rect):
 

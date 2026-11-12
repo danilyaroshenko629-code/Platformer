@@ -13,7 +13,7 @@ screen = pg.display.set_mode((settings.WINDOW_SIZE))
 clock = pg.time.Clock()
 
 asset_manager_bg = AssetManager()
-bg_image = asset_manager_bg.get_image(settings.BACKGROUND , settings.WINDOW_SIZE)
+bg_image = asset_manager_bg.get_image(settings.BACKGROUND_PATH , settings.WINDOW_SIZE)
 
 platforms, walls, ground,player = load_level("level_1.txt", AssetManager())
 pg.mixer_music.load(settings.LEVEL_1_MUSIC)

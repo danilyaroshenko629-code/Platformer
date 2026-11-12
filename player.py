@@ -81,7 +81,10 @@ class Player(GameObject):
 
 
     def respawn(self):
-            self.position = (125,650)
+            self.velocity.y = 0
+            self.velocity.x = 0
+            self.position.x = 125
+            self.position.y = 650
             self.death_sound.play()
 
     def update(self, dt: float, platforms,walls,grounds):

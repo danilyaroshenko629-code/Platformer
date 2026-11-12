@@ -17,7 +17,7 @@ bg_image = asset_manager_bg.get_image(settings.BACKGROUND , settings.WINDOW_SIZE
 
 platforms, walls, ground,player = load_level("level_1.txt", AssetManager())
 pg.mixer_music.load(settings.LEVEL_1_MUSIC)
-pg.mixer_music.set_volume(0.09)
+pg.mixer_music.set_volume(0.05  )
 pg.mixer_music.play(-1)
 
 run = True

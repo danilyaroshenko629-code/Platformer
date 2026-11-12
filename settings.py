@@ -1,4 +1,5 @@
 import Asset
+from pathlib import Path
 MAX_SPEED = 500
 ACCELERATION = 2500
 FRICTION = 4500
@@ -17,8 +18,8 @@ MAP_SYMBOLS = {
 
 }
 
-BACKGROUND = "Asset/Background_1.png"
-GROUND = "Asset/ground.png"
+BACKGROUND = "Asset/picture/Background_1.png"
+GROUND = "Asset/picture/ground.png"
 PLAYER = "Asset/img.png"
 PLATTFORM ="Asset/Platform.png"
 WALL_RIGHT = "Asset/wall.right.png"

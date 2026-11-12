@@ -28,6 +28,8 @@ while run:
     screen.blit(bg_image, (0, 0))
 
     player.update(dt,platforms,walls,ground)
+    if player.position.y > settings.WINDOW_SIZE[1]:
+        player.respawn()
 
     player.draw(screen)
     platforms.draw(screen)

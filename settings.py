@@ -28,3 +28,4 @@ WALL_TOP = "Asset/wall_left.png"
 
 JUMP_SFX = r"Asset/sounds/jumpsoundeffect.mp3"
 LEVEL_1_MUSIC = "Asset/sounds/bit-shift-kevin-macleod-main-version-24901-03-12.mp3"
+DEATH_SOUND =  "Asset/sounds/chisper-8-bit-game-over-634762.mp3"

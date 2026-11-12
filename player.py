@@ -15,6 +15,7 @@ class Player(GameObject):
         #
         self.is_grounded = True
         self.jump_sound = self.asset_manager.get_sound(settings.JUMP_SFX)
+        self.death_sound = self.asset_manager.get_sound(settings.DEATH_SOUND)
         self.image_right = self.image
         self.image_left = pg.transform.flip(self.image,True,False)
 
@@ -81,6 +82,7 @@ class Player(GameObject):
 
     def respawn(self):
             self.position = (125,650)
+            self.death_sound.play()
 
     def update(self, dt: float, platforms,walls,grounds):
         self.handle_input()
@@ -89,8 +91,6 @@ class Player(GameObject):
         self.position.x += self.velocity.x * dt
         # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
 
-        if self.position.y > settings.WINDOW_SIZE[1]:
-            self.respawn()
 
         for w in walls:
             if self.rect.colliderect(w.rect):

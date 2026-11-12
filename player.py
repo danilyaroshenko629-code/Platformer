@@ -14,6 +14,9 @@ class Player(GameObject):
         self.velocity = pg.Vector2(0, 0)
         #
         self.is_grounded = True
+        self.jump_sound = self.asset_manager.get_sound(settings.JUMP_SFX)
+        self.image_right = self.image
+        self.image_left = pg.transform.flip(self.image,True,False)
 
     def handle_input(self):
         keys = pg.key.get_pressed()
@@ -21,9 +24,13 @@ class Player(GameObject):
 
         if keys[pg.K_d]:
             self.move_direction += 1.0
+            if  self.image != self.image_right:
+                self.image = self.image_right
 
         if keys[pg.K_a]:
             self.move_direction -= 1.0
+            if self.image != self.image_left:
+                self.image= self.image_left
 
         if keys[pg.K_SPACE]:
             self.jump()
@@ -35,7 +42,7 @@ class Player(GameObject):
         if self.is_grounded:
             self.velocity.y = -settings.JUMP_FORCE
             self.is_grounded = False
-
+            self.jump_sound.play()
 
         # якщо гравець він не на землі
         # змінуюємо швидкість гравця velocity.y на JUMP_FORCE
@@ -71,6 +78,10 @@ class Player(GameObject):
             self.position.x = float(self.rect.x)
             self.velocity.x = 0
 
+
+    def respawn(self):
+            self.position = (125,650)
+
     def update(self, dt: float, platforms,walls,grounds):
         self.handle_input()
 
@@ -78,7 +89,8 @@ class Player(GameObject):
         self.position.x += self.velocity.x * dt
         # перероблюємо на ГОРИЗОНТАЛЬНИЙ рух
 
-
+        if self.position.y > settings.WINDOW_SIZE[1]:
+            self.respawn()
 
         for w in walls:
             if self.rect.colliderect(w.rect):

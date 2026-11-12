@@ -4,7 +4,7 @@ import pygame as pg
 class AssetManager:
     def __init__(self):
         self._images: dict[str: pg.Surface] = {}
-        # self._sound =
+        self._sounds : dict[str: pg.mixer.Sound] = {}
 
     # ЗАВАНТАЖИТИ ФОТО та ПОВЕРНУТИ ЦЕ ФОТО
     def get_image(self, path: str, scale: tuple[int, int]):
@@ -27,6 +27,18 @@ class AssetManager:
                 self._images[key] = surface
 
         return self._images[key]
+
+    def get_sound(self, path: str):
+        if not (path in self._sounds):
+
+            try:
+                self._sounds[path]  = pg.mixer.Sound(path)
+                self._sounds[path].set_volume(0.1)
+            except(pg.error, FileNotFoundError):
+                print("Помилка в завантажені файлу", path)
+                return None
+        return self._sounds[path]
+
 
 # do not touch
 # hello hello

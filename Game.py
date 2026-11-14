@@ -6,6 +6,7 @@ from game_plattform import GamePlatform
 from player import Player
 from game_ground import GameGround
 from level_loader import load_level
+from hud import HUD
 
 pg.init()
 pg.mixer.init()
@@ -19,6 +20,7 @@ platforms, walls, ground,player = load_level("level_1.txt", AssetManager())
 pg.mixer_music.load(settings.LEVEL_1_MUSIC)
 pg.mixer_music.set_volume(0.05  )
 pg.mixer_music.play(-1)
+hud = HUD(30,None,(255,0,0))
 
 run = True
 while run:
@@ -28,8 +30,11 @@ while run:
     screen.blit(bg_image, (0, 0))
 
     player.update(dt,platforms,walls,ground)
-    if player.position.y > settings.WINDOW_SIZE[1]:
+    if player.position.y > settings.WINDOW_SIZE[1] and player.hp  >0 :
+        player.hp -= 99
         player.respawn()
+
+    hud.draw(screen,player,"level_1")
 
     player.draw(screen)
     platforms.draw(screen)

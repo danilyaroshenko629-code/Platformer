@@ -21,6 +21,7 @@ class Player(GameObject):
         self.death_sound = self.asset_manager.get_sound(settings.DEATH_SOUND)
         self.image_right = self.image
         self.image_left = pg.transform.flip(self.image,True,False)
+        self.hp = 100
 
     def handle_input(self):
         keys = pg.key.get_pressed()
